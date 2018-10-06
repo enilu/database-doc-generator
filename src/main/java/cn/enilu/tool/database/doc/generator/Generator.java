@@ -54,7 +54,6 @@ public class Generator {
             TableVo tableVo = getTableInfo(table,comment,dbName);
             tables.add(tableVo);
         }
-        System.out.println(Json.toJson(tables));
         save2File(tables);
     }
     public TableVo getTableInfo(String table,String comment,String dbName){
