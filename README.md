@@ -44,7 +44,7 @@ info: >> generation finished with success in 1.6s !
 Starting server ...
 Serving book on http://localhost:4000
 ```
-- 访问http://localhost:4000，即可在线查看数据库文档
+- 访问 http://localhost:4000，即可在线查看数据库文档
 
 ![summary](summary.jpg)
 
