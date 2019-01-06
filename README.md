@@ -7,16 +7,22 @@
 - 运行程序后按照下面提示输入对应数据库参数：
 
 ```bash
-input mysql host:
-127.0.0.1
-input mysql port:
-3306
-input database name:
-guns-lite
-input mysql username:
-root
-input mysql password:
-root
+choose database:
+1:mysql
+2:oracle
+Select the appropriate numbers choose database type
+(Enter 'c' to cancel): 2
+input service name:
+XE
+input host:
+localhost
+input port:
+1521
+input username:
+guns
+input password:
+guns
+
 ```
 - 输入完成后回车，即可生成数据库文档目录${dbname}-doc,目录中文档以markdown文件为载体：
 
