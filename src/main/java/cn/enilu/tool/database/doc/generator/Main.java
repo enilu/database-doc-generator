@@ -1,7 +1,8 @@
 package cn.enilu.tool.database.doc.generator;
 
-import org.nutz.dao.Dao;
-import org.nutz.dao.impl.NutDao;
+import cn.enilu.tool.database.doc.generator.database.Generator;
+import cn.enilu.tool.database.doc.generator.database.MySQL;
+import cn.enilu.tool.database.doc.generator.database.Oracle;
 import org.nutz.dao.impl.SimpleDataSource;
 
 import java.util.Scanner;
@@ -15,25 +16,56 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
-        System.out.println("input mysql host:");
+        System.out.print("choose database:\n1:mysql\n2:oracle\n" +
+                "Select the appropriate numbers choose database type\n" +
+                "(Enter 'c' to cancel): ");
+        String dbType = sc.nextLine();
+        if("c".equals(dbType)){
+            System.exit(-1);
+        }
+        if( !("1").equals(dbType) && !"2".equals(dbType)){
+            System.out.println("wrong number,will exit");
+            System.exit(-1);
+        }
+        String serviceName =null;
+        if("2".equals(dbType)){
+            System.out.println("input service name:");
+            serviceName = sc.nextLine();
+        }
+        String dbName = null;
+        if("1".equals(dbType)){
+            System.out.println("input database name:");
+            dbName = sc.nextLine();
+        }
+        System.out.println("input host:");
         String ip = sc.nextLine();
-        System.out.println("input mysql port:");
+        System.out.println("input port:");
         String port = sc.nextLine();
-        System.out.println("input database name:");
-        String dbName = sc.nextLine();
 
-        System.out.println("input mysql username:");
+
+        System.out.println("input username:");
         String username = sc.nextLine();
 
-        System.out.println("input mysql password:");
+        System.out.println("input password:");
         String passowrd = sc.nextLine();
 
         SimpleDataSource dataSource = new SimpleDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://"+ip+":"+port+"/"+dbName);
+        if("1".equals(dbType)) {
+            dataSource.setJdbcUrl("jdbc:mysql://" + ip + ":" + port + "/" + dbName);
+        }else if("2".equals(dbType)){
+            dataSource.setJdbcUrl("jdbc:oracle:thin:@"+ip+":"+port+":"+serviceName);
+        }
         dataSource.setUsername(username);
         dataSource.setPassword(passowrd);
-        Dao dao = new NutDao(dataSource);
-        Generator generator = new Generator(dao);
-        generator.generateDoc(dbName,dbName+"-doc");
+        Generator generator = null;
+        switch (dbType){
+            case "1":
+                 generator = new MySQL(dbName,dataSource);
+                break;
+            case "2":
+                generator = new Oracle(username,dataSource);
+        }
+
+        generator.generateDoc();
     }
 }
