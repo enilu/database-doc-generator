@@ -10,18 +10,19 @@
 choose database:
 1:mysql
 2:oracle
+3:PostgreSQL
 Select the appropriate numbers choose database type
-(Enter 'c' to cancel): 2
-input service name:
-XE
+(Enter 'c' to cancel): 3
+input database name:
+gunslite
 input host:
 localhost
 input port:
-1521
+5432
 input username:
-guns
+enilu
 input password:
-guns
+123456
 
 ```
 - 输入完成后回车，即可生成数据库文档目录${dbname}-doc,目录中文档以markdown文件为载体：

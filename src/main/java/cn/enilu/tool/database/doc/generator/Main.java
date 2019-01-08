@@ -3,6 +3,7 @@ package cn.enilu.tool.database.doc.generator;
 import cn.enilu.tool.database.doc.generator.database.Generator;
 import cn.enilu.tool.database.doc.generator.database.MySQL;
 import cn.enilu.tool.database.doc.generator.database.Oracle;
+import cn.enilu.tool.database.doc.generator.database.PostgreSQL;
 import org.nutz.dao.impl.SimpleDataSource;
 
 import java.util.Scanner;
@@ -16,14 +17,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
-        System.out.print("choose database:\n1:mysql\n2:oracle\n" +
+        System.out.print("choose database:\n1:mysql\n2:oracle\n3:PostgreSQL\n" +
                 "Select the appropriate numbers choose database type\n" +
                 "(Enter 'c' to cancel): ");
         String dbType = sc.nextLine();
         if("c".equals(dbType)){
             System.exit(-1);
         }
-        if( !("1").equals(dbType) && !"2".equals(dbType)){
+        if( !("1").equals(dbType) && !"2".equals(dbType) && !"3".equals(dbType)){
             System.out.println("wrong number,will exit");
             System.exit(-1);
         }
@@ -33,7 +34,7 @@ public class Main {
             serviceName = sc.nextLine();
         }
         String dbName = null;
-        if("1".equals(dbType)){
+        if("1".equals(dbType) || "3".equals(dbType)){
             System.out.println("input database name:");
             dbName = sc.nextLine();
         }
@@ -54,6 +55,8 @@ public class Main {
             dataSource.setJdbcUrl("jdbc:mysql://" + ip + ":" + port + "/" + dbName);
         }else if("2".equals(dbType)){
             dataSource.setJdbcUrl("jdbc:oracle:thin:@"+ip+":"+port+":"+serviceName);
+        }else if("3".equals(dbType)){
+            dataSource.setJdbcUrl("jdbc:postgresql://"+ip+":"+port+"/"+dbName);
         }
         dataSource.setUsername(username);
         dataSource.setPassword(passowrd);
@@ -64,6 +67,9 @@ public class Main {
                 break;
             case "2":
                 generator = new Oracle(username,dataSource);
+                break;
+            case "3":
+                generator = new PostgreSQL(dbName,dataSource);
         }
 
         generator.generateDoc();

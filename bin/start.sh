@@ -14,4 +14,4 @@ do
   CP=$CP:$jar
 done
 
-  java -Xms256M -Xmx512M -cp $CP com.xinshucredit.icbc.Main
+  java -Xms256M -Xmx512M -cp $CP cn.enilu.tool.database.doc.generator.Main

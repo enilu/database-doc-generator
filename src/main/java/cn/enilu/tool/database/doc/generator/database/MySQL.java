@@ -51,7 +51,7 @@ public class MySQL extends Generator {
             column.setName(record.getString("column_name"));
             column.setType(record.getString("column_type"));
             column.setKey(record.getString("column_key"));
-            column.setIsNullable(record.getString("is_nullable"));
+            column.setIsNullable(record.getString("is_nullable").equals("NO")?"否":"是");
             column.setComment(record.getString("column_comment"));
             columns.add(column);
         }
