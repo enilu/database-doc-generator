@@ -25,5 +25,12 @@
         <include>database-doc-generator*.jar</include>
       </includes>
     </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/target/classes/</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>database.html</include>
+      </includes>
+    </fileSet>
   </fileSets>
 </assembly>
