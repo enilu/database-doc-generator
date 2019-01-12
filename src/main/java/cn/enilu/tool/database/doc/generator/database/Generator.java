@@ -2,6 +2,7 @@ package cn.enilu.tool.database.doc.generator.database;
 
 import cn.enilu.tool.database.doc.generator.bean.ColumnVo;
 import cn.enilu.tool.database.doc.generator.bean.TableVo;
+import cn.enilu.tool.database.doc.generator.doc.WordGenerator;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.Record;
@@ -49,6 +50,9 @@ public abstract class Generator {
         }
         List<TableVo> list = getTableData();
         save2File(list);
+        //保存word
+        WordGenerator.createDoc(dbName,list);
+
     }
 
     public void save2File(List<TableVo> tables) {
