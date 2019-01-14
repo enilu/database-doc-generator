@@ -1,9 +1,6 @@
 package cn.enilu.tool.database.doc.generator;
 
-import cn.enilu.tool.database.doc.generator.database.Generator;
-import cn.enilu.tool.database.doc.generator.database.MySQL;
-import cn.enilu.tool.database.doc.generator.database.Oracle;
-import cn.enilu.tool.database.doc.generator.database.PostgreSQL;
+import cn.enilu.tool.database.doc.generator.database.*;
 import org.nutz.dao.impl.SimpleDataSource;
 
 import java.util.Scanner;
@@ -17,14 +14,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
-        System.out.print("choose database:\n1:mysql\n2:oracle\n3:PostgreSQL\n" +
+        System.out.print("choose database:\n1:mysql\n2:oracle\n3:PostgreSQL\n4:SqlServer\n" +
                 "Select the appropriate numbers choose database type\n" +
                 "(Enter 'c' to cancel): ");
         String dbType = sc.nextLine();
         if("c".equals(dbType)){
             System.exit(-1);
         }
-        if( !("1").equals(dbType) && !"2".equals(dbType) && !"3".equals(dbType)){
+        if(Integer.valueOf(dbType)<1 ||Integer.valueOf(dbType)>4){
             System.out.println("wrong number,will exit");
             System.exit(-1);
         }
@@ -57,6 +54,8 @@ public class Main {
             dataSource.setJdbcUrl("jdbc:oracle:thin:@"+ip+":"+port+":"+serviceName);
         }else if("3".equals(dbType)){
             dataSource.setJdbcUrl("jdbc:postgresql://"+ip+":"+port+"/"+dbName);
+        }else if("4".equals(dbType)){
+            dataSource.setJdbcUrl("jdbc:sqlserver://"+ip+":"+port+";database="+dbName);
         }
         dataSource.setUsername(username);
         dataSource.setPassword(passowrd);
@@ -70,6 +69,9 @@ public class Main {
                 break;
             case "3":
                 generator = new PostgreSQL(dbName,dataSource);
+                break;
+            case "4":
+                generator = new SqlServer(dbName,dataSource);
         }
 
         generator.generateDoc();
