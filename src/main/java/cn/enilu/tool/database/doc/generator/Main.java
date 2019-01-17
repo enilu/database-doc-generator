@@ -13,33 +13,36 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        System.out.print("choose database:\n1:mysql\n2:oracle\n3:PostgreSQL\n4:SqlServer\n" +
+        Scanner sc = new Scanner(System.in);
+        System.out.print("choose database:\n1:MySQL\n2:Oracle\n3:PostgreSQL\n4:SQLServer\n" +
                 "Select the appropriate numbers choose database type\n" +
-                "(Enter 'c' to cancel): ");
+                "(Enter 'c' to cancel):\n ");
         String dbType = sc.nextLine();
-        if("c".equals(dbType)){
+        if ("c".equals(dbType)) {
             System.exit(-1);
         }
-        if(Integer.valueOf(dbType)<1 ||Integer.valueOf(dbType)>4){
+        if (Integer.valueOf(dbType) < 1 || Integer.valueOf(dbType) > 4) {
             System.out.println("wrong number,will exit");
             System.exit(-1);
         }
-        String serviceName =null;
-        if("2".equals(dbType)){
+        String serviceName = null;
+        if ("2".equals(dbType)) {
             System.out.println("input service name:");
             serviceName = sc.nextLine();
         }
         String dbName = null;
-        if("1".equals(dbType) || "3".equals(dbType)){
+        if ("1".equals(dbType) || "3".equals(dbType) || "4".equals(dbType)) {
             System.out.println("input database name:");
             dbName = sc.nextLine();
         }
         System.out.println("input host:");
         String ip = sc.nextLine();
-        System.out.println("input port:");
+        System.out.println("input port(default " + getDefaultPort(dbType) + "):");
         String port = sc.nextLine();
-
+        if("".equals(port))
+        {
+            port = getDefaultPort(dbType);
+        }
 
         System.out.println("input username:");
         String username = sc.nextLine();
@@ -48,32 +51,61 @@ public class Main {
         String passowrd = sc.nextLine();
 
         SimpleDataSource dataSource = new SimpleDataSource();
-        if("1".equals(dbType)) {
+        if ("1".equals(dbType)) {
             dataSource.setJdbcUrl("jdbc:mysql://" + ip + ":" + port + "/" + dbName);
-        }else if("2".equals(dbType)){
-            dataSource.setJdbcUrl("jdbc:oracle:thin:@"+ip+":"+port+":"+serviceName);
-        }else if("3".equals(dbType)){
-            dataSource.setJdbcUrl("jdbc:postgresql://"+ip+":"+port+"/"+dbName);
-        }else if("4".equals(dbType)){
-            dataSource.setJdbcUrl("jdbc:sqlserver://"+ip+":"+port+";database="+dbName);
+        } else if ("2".equals(dbType)) {
+            dataSource.setJdbcUrl("jdbc:oracle:thin:@" + ip + ":" + port + ":" + serviceName);
+        } else if ("3".equals(dbType)) {
+            dataSource.setJdbcUrl("jdbc:postgresql://" + ip + ":" + port + "/" + dbName);
+        } else if ("4".equals(dbType)) {
+            dataSource.setJdbcUrl("jdbc:sqlserver://" + ip + ":" + port + ";database=" + dbName);
         }
         dataSource.setUsername(username);
         dataSource.setPassword(passowrd);
         Generator generator = null;
-        switch (dbType){
+        switch (dbType) {
             case "1":
-                 generator = new MySQL(dbName,dataSource);
+                generator = new MySQL(dbName, dataSource);
                 break;
             case "2":
-                generator = new Oracle(username,dataSource);
+                generator = new Oracle(username, dataSource);
                 break;
             case "3":
-                generator = new PostgreSQL(dbName,dataSource);
+                generator = new PostgreSQL(dbName, dataSource);
                 break;
             case "4":
-                generator = new SqlServer(dbName,dataSource);
+                generator = new SqlServer(dbName, dataSource);
         }
 
         generator.generateDoc();
+    }
+
+    private static String getDefaultPort(String dbType) {
+        String defaultPort = "";
+
+        switch (dbType) {
+            case "1": {
+                defaultPort = "3306";
+                break;
+            }
+            case "2": {
+                defaultPort = "1521";
+                break;
+            }
+            case "3": {
+                defaultPort = "5432";
+                break;
+            }
+            case "4": {
+                defaultPort = "1433";
+                break;
+            }
+            default: {
+                defaultPort = "-";
+                break;
+            }
+        }
+
+        return defaultPort;
     }
 }
