@@ -36,11 +36,13 @@
             <artifactId>ojdbc14</artifactId>
             <version>10.2.0.4.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc42 -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>sqljdbc4</artifactId>
-            <version>4.0</version>
+            <artifactId>sqljdbc42</artifactId>
+            <version>6.0.8112</version>
         </dependency>
+
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
