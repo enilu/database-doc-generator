@@ -35,20 +35,33 @@ public class Main {
             System.out.println("input database name:");
             dbName = sc.nextLine();
         }
-        System.out.println("input host:");
+        System.out.println("input host (default 127.0.0.1) :");
         String ip = sc.nextLine();
-        System.out.println("input port(default " + getDefaultPort(dbType) + "):");
+        if("".equals(ip))
+        {
+            ip = "127.0.0.1";
+        }
+
+        System.out.println("input port (default " + getDefaultPort(dbType) + ") :");
         String port = sc.nextLine();
         if("".equals(port))
         {
             port = getDefaultPort(dbType);
         }
 
-        System.out.println("input username:");
+        System.out.println("input username (default " + getDefaultUser(dbType) + ") :");
         String username = sc.nextLine();
+        if("".equals(username))
+        {
+            username = getDefaultUser(dbType);
+        }
 
-        System.out.println("input password:");
+        System.out.println("input password (default 123456) :");
         String passowrd = sc.nextLine();
+        if("".equals(passowrd))
+        {
+            passowrd = "123456";
+        }
 
         SimpleDataSource dataSource = new SimpleDataSource();
         if ("1".equals(dbType)) {
@@ -75,6 +88,9 @@ public class Main {
                 break;
             case "4":
                 generator = new SqlServer(dbName, dataSource);
+            default:
+                System.out.println("not support database");
+                break;
         }
 
         generator.generateDoc();
@@ -107,5 +123,34 @@ public class Main {
         }
 
         return defaultPort;
+    }
+
+    private static String getDefaultUser(String dbType) {
+        String defaultUser = "";
+
+        switch (dbType) {
+            case "1": {
+                defaultUser = "root";
+                break;
+            }
+            case "2": {
+                defaultUser = "not support";
+                break;
+            }
+            case "3": {
+                defaultUser = "postgres";
+                break;
+            }
+            case "4": {
+                defaultUser = "sa";
+                break;
+            }
+            default: {
+                defaultUser = "-";
+                break;
+            }
+        }
+
+        return defaultUser;
     }
 }
