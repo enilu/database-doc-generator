@@ -14,6 +14,7 @@ import org.nutz.lang.Strings;
 
 import java.io.File;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Generator
@@ -44,7 +45,20 @@ public abstract class Generator {
     public void generateDoc() {
         File docDir = new File(docPath);
         if (docDir.exists()) {
-            throw new RuntimeException("该文件夹" + docPath + "已存在");
+
+            String str = "\n【温馨提示】 - 文件夹" + docPath + "已存在。 是否删除?(y 默认删除)\n";
+            //throw new RuntimeException(str);
+            System.out.print(str);
+
+            Scanner sc = new Scanner(System.in);
+            String dbType = sc.nextLine();
+            if ("y".equals(dbType) || "".equals(dbType)) {
+                docDir.delete();
+            }
+            else
+            {
+                return;
+            }
         } else {
             docDir.mkdirs();
         }
@@ -61,7 +75,6 @@ public abstract class Generator {
         for (TableVo tableVo : tables) {
             saveTableFile(tableVo);
         }
-
     }
 
     private void saveSummary(List<TableVo> tables) {
