@@ -24,7 +24,7 @@
     <#list tables as item>
     <tr style="background-color: #e8edff;">
         <td>${item.table}</td>
-        <td>${item.comment}</td>
+        <td>${item.comment?default('')}</td>
     </tr>
     </#list>
     </tbody>
@@ -32,7 +32,7 @@
 <h2>表明细</h2>
 <#list tables as item>
 <br>
-<h3>${item.comment}(${item.table})</h3>
+<h3>${item.comment?default('')}(${item.table})</h3>
 <table   width="100%">
     <thead style="background-color: #b9c9fe;font-weight: bold;">
     <tr>
@@ -48,9 +48,9 @@
     <tr style="background-color: #e8edff;">
         <td>${column.name}</td>
         <td>${column.type}</td>
-        <td>${column.key}</td>
-        <td>${column.isNullable}</td>
-        <td>${column.comment}</td>
+        <td>${column.key?default('')}</td>
+        <td>${column.isNullable?default('')}</td>
+        <td>${column.comment?default('')}</td>
     </tr>
     </#list>
     </tbody>
