@@ -1,6 +1,8 @@
 package cn.enilu.tool.database.doc.generator.database;
 
 import cn.enilu.tool.database.doc.generator.bean.ColumnVo;
+import cn.enilu.tool.database.doc.generator.bean.Constants;
+import cn.enilu.tool.database.doc.generator.bean.DdgDataSource;
 import cn.enilu.tool.database.doc.generator.bean.TableVo;
 import cn.enilu.tool.database.doc.generator.doc.WordGenerator;
 import org.nutz.dao.Dao;
@@ -24,13 +26,18 @@ import java.util.Scanner;
  */
 public abstract class Generator {
     private SimpleDataSource dataSource;
+    private DdgDataSource ddgDataSource;
     protected Dao dao = null;
     protected String dbName;
     protected String docPath;
 
-    public Generator(String dbName, SimpleDataSource dataSource) {
-        this.dataSource = dataSource;
-        dao = new NutDao(dataSource);
+    public Generator(String dbName, DdgDataSource dataSource) {
+        this.ddgDataSource = dataSource;
+        if(Constants.DB_MONGO != dataSource.getDbType()){
+
+            this.dataSource = dataSource.getDs();
+            dao = new NutDao(this.dataSource);
+        }
         this.dbName = dbName;
         this.docPath = dbName + "-doc";
     }
@@ -65,7 +72,7 @@ public abstract class Generator {
         List<TableVo> list = getTableData();
         save2File(list);
         //保存word
-        WordGenerator.createDoc(dbName,list);
+        WordGenerator.createDoc(ddgDataSource.getDbType(),dbName,list);
 
     }
 

@@ -1,3 +1,5 @@
 *.iml
 .idea/
 target/
+*-doc
+lib/*.jar

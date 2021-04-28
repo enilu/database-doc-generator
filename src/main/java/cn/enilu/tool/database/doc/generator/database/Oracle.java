@@ -1,6 +1,7 @@
 package cn.enilu.tool.database.doc.generator.database;
 
 import cn.enilu.tool.database.doc.generator.bean.ColumnVo;
+import cn.enilu.tool.database.doc.generator.bean.DdgDataSource;
 import cn.enilu.tool.database.doc.generator.bean.TableVo;
 import org.nutz.dao.entity.Record;
 import org.nutz.dao.impl.SimpleDataSource;
@@ -19,7 +20,7 @@ public class Oracle  extends Generator{
     private String sqlColumns = "select column_name,data_type,data_length,nullable from user_tab_columns where " +
             "Table_Name='@tablename'";
     private String sqlColumnComments = "select column_name,comments from user_col_comments where TABLE_NAME='@tablename'";
-    public Oracle(String dbName, SimpleDataSource dataSource) {
+    public Oracle(String dbName, DdgDataSource dataSource) {
         super(dbName, dataSource);
     }
 

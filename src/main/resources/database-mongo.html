@@ -18,8 +18,7 @@
     <tr>
         <td>名称</td>
         <td>备注</td>
-        <td>记录数</td>
-        <td>数据量</td>
+
     </tr>
     </thead>
     <tbody>
@@ -27,8 +26,7 @@
     <tr style="background-color: #e8edff;">
         <td>${item.table}</td>
         <td>${item.comment?default('')}</td>
-        <td>${item.rows?default('')}</td>
-        <td>${item.dataLengthHuman?default('')}</td>
+
     </tr>
     </#list>
     </tbody>
@@ -36,15 +34,13 @@
 <h2>表明细</h2>
 <#list tables as item>
 <br>
-<h3>${item.comment?default('')}(${item.table})</h3>
+<h3>${item.table}</h3>
 <table   width="100%">
     <thead style="background-color: #b9c9fe;font-weight: bold;">
     <tr>
-        <td>列名</td>
-        <td>类型</td>
-        <td>KEY</td>
-        <td>可否为空</td>
-        <td>注释</td>
+        <td width="40%">列名</td>
+        <td width="25%">类型</td>
+        <td width="35%">注释</td>
     </tr>
     </thead>
     <tbody>
@@ -52,8 +48,6 @@
     <tr style="background-color: #e8edff;">
         <td>${column.name}</td>
         <td>${column.type}</td>
-        <td>${column.key?default('')}</td>
-        <td>${column.isNullable?default('')}</td>
         <td>${column.comment?default('')}</td>
     </tr>
     </#list>

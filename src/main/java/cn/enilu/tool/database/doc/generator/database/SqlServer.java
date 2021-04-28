@@ -1,6 +1,7 @@
 package cn.enilu.tool.database.doc.generator.database;
 
 import cn.enilu.tool.database.doc.generator.bean.ColumnVo;
+import cn.enilu.tool.database.doc.generator.bean.DdgDataSource;
 import cn.enilu.tool.database.doc.generator.bean.TableVo;
 import org.nutz.dao.entity.Record;
 import org.nutz.dao.impl.SimpleDataSource;
@@ -49,7 +50,7 @@ public class SqlServer extends Generator {
             + "  ) IDX ON C.[object_id]=IDX.[object_id]\n" + "           AND C.column_id=IDX.column_id\n"
             + "WHERE O.name='@tablename' -- 如果只查询指定表,加上此条件\n" + "ORDER BY O.name,C.column_id";
 
-    public SqlServer(String dbName, SimpleDataSource dataSource) {
+    public SqlServer(String dbName, DdgDataSource dataSource) {
         super(dbName, dataSource);
     }
 

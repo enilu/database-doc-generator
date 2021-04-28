@@ -1,6 +1,7 @@
 package cn.enilu.tool.database.doc.generator.database;
 
 import cn.enilu.tool.database.doc.generator.bean.ColumnVo;
+import cn.enilu.tool.database.doc.generator.bean.DdgDataSource;
 import cn.enilu.tool.database.doc.generator.bean.TableVo;
 import org.nutz.dao.entity.Record;
 import org.nutz.dao.impl.SimpleDataSource;
@@ -23,7 +24,7 @@ public class PostgreSQL extends Generator {
             " WHERE c.relname = '@tablename' and a.attnum > 0 and a.attrelid = c.oid and a.atttypid = t.oid" +
             " ORDER BY a.attnum";
 
-    public PostgreSQL(String dbName, SimpleDataSource dataSource) {
+    public PostgreSQL(String dbName, DdgDataSource dataSource) {
         super(dbName, dataSource);
     }
 

@@ -1,6 +1,7 @@
 package cn.enilu.tool.database.doc.generator.doc;
 
 import cn.enilu.tool.database.doc.generator.bean.ColumnVo;
+import cn.enilu.tool.database.doc.generator.bean.Constants;
 import cn.enilu.tool.database.doc.generator.bean.TableVo;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -25,8 +26,8 @@ public class WordGenerator {
         configuration = new Configuration();
         configuration.setDefaultEncoding("utf-8");
         try {
-            configuration.setDirectoryForTemplateLoading(new File("./"));
-        } catch (IOException e) {
+            configuration.setClassForTemplateLoading(WordGenerator.class,"/");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -35,12 +36,12 @@ public class WordGenerator {
         throw new AssertionError();
     }
 
-    public static void createDoc(String dbName, List<TableVo> list) {
+    public static void createDoc(int dbType,String dbName, List<TableVo> list) {
         Map map = new HashMap();
         map.put("dbName", dbName);
         map.put("tables", list);
         try {
-            Template template = configuration.getTemplate("database.html");
+            Template template = configuration.getTemplate(Constants.DB_MONGO == dbType?"database-mongo.html":"database.html");
             String name = dbName + "-doc" + File.separator + dbName + ".html";
             File f = new File(name);
             Writer w = new OutputStreamWriter(new FileOutputStream(f), "utf-8");
@@ -79,7 +80,7 @@ public class WordGenerator {
             list.add(tableVo);
         }
 
-        createDoc("test", list);
+        createDoc(Constants.DB_MYSQL,"test", list);
 
     }
 
