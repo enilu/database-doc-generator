@@ -1,9 +1,9 @@
 # database-doc-generator
 数据库文档生成器
 
-- 该工具根据给定的链接生成数据库文档，如果你嫌powerdesigner太重，那么可以试试该工具。
+- 该工具根据给定的配置生成数据库文档，如果你嫌Power Designer太重，那么可以试试该工具。
 - 你可以下载[release](https://github.com/enilu/database-doc-generator/releases/tag/1.0)包来或者下载源代码来使用。
-- 如果使用源代码，需要先克隆该项目后运行mvn package打包，然后运行发布报中bin/start.bat
+- 如果使用源代码，需要先克隆该项目后运行mvn package打包，然后运行发布包中的bin/start.bat
 - 运行程序后按照下面提示输入对应数据库参数：
 
 ```bash
@@ -25,7 +25,9 @@ input password:
 123456
 
 ```
-- 输入完成后回车，即可生成数据库文档目录${dbname}-doc,目录中文档以markdown文件为载体：
+- 输入完成后回车，即可生成数据库文档目录${dbname}-doc,目录中文档有三种形式：单文件html，word，markdown
+
+其中markdown可以用来生成html用于在线查看数据库文档：
 
 ![doc](doc.jpg)
 
