@@ -2,6 +2,13 @@
 数据库文档生成器
 
 - 该工具根据给定的链接生成数据库文档，如果你嫌powerdesigner太重，那么可以试试该工具。
+- 支持的数据库类型：
+    - MySQL
+    - Oracle
+    - SQLServer
+    - MongoDB
+    - PostgreSQL
+    
 - 你可以下载[release](https://github.com/enilu/database-doc-generator/releases/tag/1.3.0)包来或者下载源代码来使用。
 - 如果使用源代码，需要先克隆该项目后运行mvn package打包，然后运行发布报中bin/start.bat
 - 运行程序后按照下面提示输入对应数据库参数：
