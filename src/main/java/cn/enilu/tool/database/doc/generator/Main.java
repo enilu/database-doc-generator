@@ -3,7 +3,6 @@ package cn.enilu.tool.database.doc.generator;
 import cn.enilu.tool.database.doc.generator.bean.Constants;
 import cn.enilu.tool.database.doc.generator.bean.DdgDataSource;
 import cn.enilu.tool.database.doc.generator.database.*;
-import org.nutz.dao.impl.SimpleDataSource;
 
 import java.util.Scanner;
 
@@ -16,14 +15,15 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("choose database:\n1:MySQL\n2:Oracle\n3:PostgreSQL\n4:SQLServer\n5:MongoDB\n" +
+        System.out.print("choose database:\n1:MySQL\n2:Oracle\n3:PostgreSQL\n4:SQLServer\n5:MongoDB\n6:达梦(DM)\n" +
                 "Select the appropriate numbers choose database type\n" +
                 "(Enter 'c' to cancel):\n ");
-        int dbType = Integer.valueOf(sc.nextLine());
-        if ("c".equals(dbType)) {
+        String input = sc.nextLine();
+        if ("c".equalsIgnoreCase(input)) {
             System.exit(-1);
         }
-        if (Integer.valueOf(dbType) < 1 || Integer.valueOf(dbType) > 5) {
+        int dbType = Integer.valueOf(input);
+        if (dbType < 1 || dbType > 6) {
             System.out.println("wrong number,will exit");
             System.exit(-1);
         }
@@ -32,6 +32,9 @@ public class Main {
         if (Constants.DB_ORACLE == dbType) {
             System.out.println("input service name:");
             serviceName = sc.nextLine();
+        } else if (Constants.DB_DM == dbType) {
+            System.out.println("input database/schema name:");
+            dbName = sc.nextLine();
         } else {
             System.out.println("input database name:");
             dbName = sc.nextLine();
@@ -78,7 +81,7 @@ public class Main {
         dataSource.setDbType(dbType);
         dataSource.setIp(ip);
         dataSource.setPort(port);
-        dataSource.setDbName("2".equals(dbType) ? serviceName : dbName);
+        dataSource.setDbName(Constants.DB_ORACLE == dbType ? serviceName : dbName);
         dataSource.setUser(username);
         dataSource.setPass(passowrd);
         Generator generator = null;
@@ -94,8 +97,13 @@ public class Main {
                 break;
             case Constants.DB_SQLSERVER:
                 generator = new SqlServer(dbName, dataSource);
+                break;
             case Constants.DB_MONGO:
                 generator = new Mongo(dbName, dataSource);
+                break;
+            case Constants.DB_DM:
+                generator = new Dameng(dbName, dataSource);
+                break;
             default:
                 System.out.println("not support database");
                 break;
@@ -128,6 +136,10 @@ public class Main {
                 defaultPort = "27017";
                 break;
             }
+            case Constants.DB_DM: {
+                defaultPort = "5236";
+                break;
+            }
             default: {
                 defaultPort = "-";
                 break;
@@ -155,6 +167,10 @@ public class Main {
             }
             case Constants.DB_SQLSERVER: {
                 defaultUser = "sa";
+                break;
+            }
+            case Constants.DB_DM: {
+                defaultUser = "SYSDBA";
                 break;
             }
             default: {

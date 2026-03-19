@@ -44,6 +44,13 @@
             <systemPath>${project.basedir}/sqljdbc42.jar</systemPath>
         </dependency>
 
+        <!-- 达梦数据库 JDBC 驱动：若中央仓库无此依赖，请从达梦官网下载 DmJdbcDriver18.jar 后执行：
+             mvn install:install-file -DgroupId=com.dameng -DartifactId=DmJdbcDriver18 -Dversion=8.1.3.12 -Dpackaging=jar -Dfile=DmJdbcDriver18.jar -->
+        <dependency>
+            <groupId>com.dameng</groupId>
+            <artifactId>DmJdbcDriver18</artifactId>
+            <version>8.1.3.140</version>
+        </dependency>
         <dependency>
             <groupId>org.nutz</groupId>
             <artifactId>nutzmongo</artifactId>

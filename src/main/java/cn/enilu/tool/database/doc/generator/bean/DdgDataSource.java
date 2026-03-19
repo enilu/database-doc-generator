@@ -29,6 +29,8 @@ public class DdgDataSource {
             dataSource.setJdbcUrl("jdbc:postgresql://" + ip + ":" + port + "/" + dbName);
         } else if (Constants.DB_SQLSERVER == dbType) {
             dataSource.setJdbcUrl("jdbc:sqlserver://" + ip + ":" + port + ";database=" + dbName);
+        } else if (Constants.DB_DM == dbType) {
+            dataSource.setJdbcUrl("jdbc:dm://" + ip + ":" + port + "/" + dbName);
         }
         dataSource.setUsername(user);
         dataSource.setPassword(pass);

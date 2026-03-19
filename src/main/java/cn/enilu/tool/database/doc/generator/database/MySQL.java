@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class MySQL extends Generator {
     String sqlTables = "select table_name,table_comment,table_rows,data_length from information_schema.tables where table_schema = '@dbname'" +
+            " and TABLE_COMMENT is not null and TABLE_COMMENT !=''" +
             " order by table_name asc";
     String sqlColumns = "select column_name,column_type,column_key,is_nullable,column_comment from information_schema" +
             ".columns where table_schema = '@dbname'  and table_name " +

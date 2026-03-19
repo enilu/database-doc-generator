@@ -13,5 +13,7 @@ public class Constants {
     public static  final int DB_POSTGRESQL= 3;
     public static  final int DB_SQLSERVER= 4;
     public static  final int DB_MONGO= 5;
+    /** 达梦数据库 */
+    public static  final int DB_DM= 6;
 
 }
